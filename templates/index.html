@@ -31,7 +31,7 @@
         </tr>
         {% for registro in registros %}
             <tr>
-                <td>{{ registro.fecha_y_hora.strftime("%Y-%m-%d %H:%M:%S") }}</td>
+                <td>{{ registro.fecha_y_hora }}</td>
                 <td>{{ registro.texto }}</td>
             </tr>
         {% endfor %}

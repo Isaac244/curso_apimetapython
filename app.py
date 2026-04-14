@@ -12,7 +12,7 @@ db = SQLAlchemy(app)
 #Modelo de la tabla Log
 class Log(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    fecha_y_hora = db.Column(db.DateTime, default=datetime.utcnow)
+    fecha_y_hora = db.Column(db.DateTime, default=datetime.now().isoformat(sep=" ", timespec="seconds"))
     texto = db.Column(db.TEXT)
 
 #Crear la tabla si no existe
@@ -42,7 +42,7 @@ def agregar_mensajes_log(texto):
     db.session.commit()
 
 #Token de verificacion para la configuracion
-TOKEN_BRYAN_ASCANOA = "BRYANASCANOA"
+TOKEN_BRYAN = "BRYANASCANOA"
 
 @app.route('/webhook', methods=['GET','POST'])
 def webhook():
@@ -54,16 +54,17 @@ def webhook():
         return reponse
 
 def verificar_token(req):
+    mode = req.args.get('hub.mode')
     token = req.args.get('hub.verify_token')
     challenge = req.args.get('hub.challenge')
 
-    if challenge and token == TOKEN_BRYAN_ASCANOA:
+    if mode == "subscribe" and challenge and token == TOKEN_BRYAN:
         return challenge
     else:
-        return jsonify({'error':'Token Invalido'}), 401
+        return jsonify({'error':'Token Invalido'}),401
 
 def recibir_mensajes(req):
-    req = request.get_json()
+    req = request.get_json(silent=True)
     agregar_mensajes_log(req)
 
     return jsonify({'message':'EVENT_RECEIVED'})
