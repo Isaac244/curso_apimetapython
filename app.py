@@ -1,3 +1,4 @@
+from waitress import serve
 from flask import Flask, request, jsonify, render_template
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
@@ -12,7 +13,7 @@ db = SQLAlchemy(app)
 #Modelo de la tabla Log
 class Log(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    fecha_y_hora = db.Column(db.DateTime, default=datetime.now().isoformat(sep=" ", timespec="seconds"))
+    fecha_y_hora = db.Column(db.DateTime, default=datetime.now)
     texto = db.Column(db.TEXT)
 
 #Crear la tabla si no existe
@@ -58,8 +59,9 @@ def verificar_token(req):
     token = req.args.get('hub.verify_token')
     challenge = req.args.get('hub.challenge')
 
-    if mode == "subscribe" and challenge and token == TOKEN_BRYAN:
-        return challenge
+    if mode == 'subscribe' and token == TOKEN_BRYAN:
+        print('WEBHOOK VERIFICADO')
+        return challenge, 200
     else:
         return jsonify({'error':'Token Invalido'}),401
 
@@ -70,4 +72,5 @@ def recibir_mensajes(req):
     return jsonify({'message':'EVENT_RECEIVED'})
 
 if __name__ == '__main__':
+    #serve(app, host='0.0.0.0', port=80)
     app.run(host='0.0.0.0', port=80, debug=True)

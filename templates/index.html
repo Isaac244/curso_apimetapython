@@ -25,16 +25,20 @@
     <h2>Registro de Mensajes</h2>
 
     <table>
-        <tr>
-            <th>Fecha y Hora</th>
-            <th>Mensaje</th>
-        </tr>
-        {% for registro in registros %}
+        <thead>
             <tr>
-                <td>{{ registro.fecha_y_hora }}</td>
-                <td>{{ registro.texto }}</td>
+                <th>Fecha y Hora</th>
+                <th>Mensaje</th>
             </tr>
-        {% endfor %}
+        </thead>
+        <tbody>
+            {% for registro in registros %}
+                <tr>
+                    <td>{{ registro.fecha_y_hora }}</td>
+                    <td>{{ registro.texto }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
     </table>
 </body>
 </html>
