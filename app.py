@@ -43,7 +43,7 @@ def agregar_mensajes_log(texto):
     db.session.commit()
 
 #Token de verificacion para la configuracion
-TOKEN_BRYAN = "BRYANASCANOA"
+TOKEN_BRYAN = "p"
 
 @app.route('/webhook', methods=['GET','POST'])
 def webhook():
