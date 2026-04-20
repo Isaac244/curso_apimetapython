@@ -13,7 +13,7 @@ db = SQLAlchemy(app)
 #Modelo de la tabla Log
 class Log(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    fecha_y_hora = db.Column(db.DateTime, default=datetime.now(timezone.utc))
+    fecha_y_hora = db.Column(db.DateTime, default=datetime.now())
     texto = db.Column(db.TEXT)
 
 #Crear la tabla si no existe
@@ -43,7 +43,7 @@ def agregar_mensajes_log(texto):
     db.session.commit()
 
 #Token de verificacion para la configuracion
-TOKEN_BRYAN = "p"
+TOKEN_BRYAN = "BRYANASCANOA"
 
 @app.route('/webhook', methods=['GET','POST'])
 def webhook():
@@ -55,11 +55,12 @@ def webhook():
         return reponse
 
 def verificar_token(req):
-    mode = req.args.get('hub.mode')
+    #mode = req.args.get('hub.mode')
     token = req.args.get('hub.verify_token')
     challenge = req.args.get('hub.challenge')
 
-    if mode == 'subscribe' and token == TOKEN_BRYAN:
+    #if mode == 'subscribe' and token == TOKEN_BRYAN:
+    if challenge and token == TOKEN_BRYAN:
         print('WEBHOOK VERIFICADO', flush=True)
         return challenge, 200
     else:
