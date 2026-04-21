@@ -90,8 +90,9 @@ def recibir_mensajes(req):
             print("No se recibio el JSON valido", flush=True)
             return jsonify({'error': 'JSON invalido'}), 400
         
-        print("JSON recibido:", json.dumps(objeto_mensaje, ensure_ascii=False, indent=2), flush=True)
         agregar_mensajes_log(json.dumps(objeto_mensaje))
+        print("JSON recibido:", json.dumps(objeto_mensaje, ensure_ascii=False, indent=2), flush=True)
+        
 
         return jsonify({'message':'EVENT_RECEIVED'}), 200
     except Exception as e:
