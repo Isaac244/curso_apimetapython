@@ -81,13 +81,17 @@ def verificar_token(req):
 def recibir_mensajes(req):
     try:
         data = req.get_json(silent=True)
+        entry = data['entry'][0]
+        changes = entry['changes'][0]
+        value = changes['value']
+        objeto_mensaje = value['messages']
 
-        if data is None:
+        if objeto_mensaje is None:
             print("No se recibio el JSON valido", flush=True)
             return jsonify({'error': 'JSON invalido'}), 400
         
-        print("JSON recibido:", json.dumps(data, ensure_ascii=False, indent=2), flush=True)
-        agregar_mensajes_log(data)
+        print("JSON recibido:", json.dumps(objeto_mensaje, ensure_ascii=False, indent=2), flush=True)
+        agregar_mensajes_log(json.dumps(objeto_mensaje))
 
         return jsonify({'message':'EVENT_RECEIVED'}), 200
     except Exception as e:
