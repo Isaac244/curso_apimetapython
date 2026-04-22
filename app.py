@@ -160,7 +160,7 @@ def enviar_mensajes_whatsapp(texto, number):
             "to": number,
             "type": "document",
             "document": {
-                    "link": "https://www.turnerlibros.com/wp-content/uploads/2021/02/ejemplo.pdf",
+                    "link": "https://www.agcex.org/wp-content/uploads/Ejemplo-de-Archivo-PDF-508.pdf",
                     "caption": "Temario del Curso #001"
                 }
             }
