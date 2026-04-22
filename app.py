@@ -2,6 +2,7 @@ from waitress import serve
 from flask import Flask, request, jsonify, render_template
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime, timezone
+import http.client
 import json
 import os
 
@@ -113,6 +114,52 @@ def recibir_mensajes(req):
     except Exception as e:
         print(f"Error en webhook POST: {str(e)}", flush=True)
         jsonify({'error': str(e)}), 500
+
+
+def enviar_mensajes_whatsapp(texto, number):
+    texto = texto.lower()
+
+    if "hola" in texto:
+        data={
+            "messaging_product": "whatsapp",
+            "recipient_type": "individual",
+            "to": number,
+            "type": "text",
+            "text": {
+                "preview_url": False,
+                "body": "🚀 Hola, ¿Cómo estás? Bienvenido."
+            }
+        }
+    else:
+        data={
+            "messaging_product": "whatsapp",
+            "recipient_type": "individual",
+            "to": number,
+            "type": "text",
+            "text": {
+                "preview_url": False,
+                "body": "🚀 Hola, juguemos videojuegos y aprendamos de los lenguajes"
+            }
+        }
+
+    #Convertir el diccionario a formato JSON
+    data=json.dumps(data)
+
+    headers = {
+        "Content-Type" : "application/json",
+        "Authorization" : "Bearer EAAXM8qivU6sBRbPvthBjZBmVARdEeusm7cLTdXvuW8yZBWUG0eQajGfPV82QaZCRwCZAaAZCw9GvCDnlQNpiLlvWQ4yqUBp8TPAZBefMkkcuXU5YB3vp7zosEkj91FSogJLAllYcuOfYj5YHNOTMBRvZBro8ZC6cbA4Im6JARK9bcRFLs5cFYzvOqdRMW6LCrL3Y9Y2cwDLJSMXqZAWnoTteZBYubSTBWl4q7HrzR3cZC7xMeDWiwoRkvXzyJncN6UUZAYxtipwCT0tjj43xgieB8EtTg9rJmQZDZD"
+    }
+
+    connection = http.client.HTTPSConnection("graph.facebook.com")
+
+    try:
+        connection.request("POST","/v25.0/1036918562843642/messages", data, headers)
+        response = connection.getresponse()
+        print(response.status, response.reason)
+    except Exception as e:
+        agregar_mensajes_log(json.dumps(e))
+    finally:
+        connection.close()
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 10000))
