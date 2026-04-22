@@ -174,6 +174,48 @@ def enviar_mensajes_whatsapp(texto, number):
                 "link": "https://filesamples.com/samples/audio/mp3/sample1.mp3"
             }
         }
+    elif "5" in texto:
+        data = {
+            "messaging_product": "whatsapp",
+            "to": number,
+            "text": {
+                "preview_url": True,
+                "body": "Disfruta del videojuego! https://www.youtube.com/watch?v=d20PbhmLNjE"
+            }
+        }
+    elif "6" in texto:
+        data = {
+            "messaging_product": "whatsapp",
+            "recipient_type": "individual",
+            "to": number,
+            "type": "text",
+            "text": {
+                "preview_url": False,
+                "body": "🤝 En breve me pondre en contacto contigo. 🤓"
+            }
+        }
+    elif "7" in texto:
+        data = {
+            "messaging_product": "whatsapp",
+            "recipient_type": "individual",
+            "to": number,
+            "type": "text",
+            "text": {
+                "preview_url": False,
+                "body": "📅 Horario de Atención : Lunes a Viernes. \n🕜 Horario : 9:00 am a 5:00 pm 🤓"
+            }
+        }
+    elif "0" in texto:
+        data = {
+            "messaging_product": "whatsapp",
+            "recipient_type": "individual",
+            "to": number,
+            "type": "text",
+            "text": {
+                "preview_url": False,
+                "body": "🚀 Hola, visita mi web anderson-bastidas.com para más información.\n \n📌Por favor, ingresa un número #️⃣ para recibir información.\n \n1️⃣. Información del Curso. ❔\n2️⃣. Ubicación del local. 📍\n3️⃣. Enviar temario en PDF. 📄\n4️⃣. Audio explicando curso. 🎧\n5️⃣. Video de Introducción. ⏯️\n6️⃣. Hablar con AnderCode. 🙋‍♂️\n7️⃣. Horario de Atención. 🕜 \n0️⃣. Regresar al Menú. 🕜"
+            }
+        }
     else:
         data={
             "messaging_product": "whatsapp",
