@@ -100,8 +100,7 @@ def recibir_mensajes(req):
                     text = messages["text"]["body"]
                     numero = messages["from"]
 
-                    agregar_mensajes_log(json.dumps(text))
-                    agregar_mensajes_log(json.dumps(numero))
+                    enviar_mensajes_whatsapp(text, numero)
 
         if objeto_mensaje is None:
             print("No se recibio el JSON valido", flush=True)
