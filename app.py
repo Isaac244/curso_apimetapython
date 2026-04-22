@@ -130,6 +130,50 @@ def enviar_mensajes_whatsapp(texto, number):
                 "body": "🚀 Hola, ¿Cómo estás? Bienvenido."
             }
         }
+    elif "1" in texto:
+        data={
+            "messaging_product": "whatsapp",
+            "recipient_type": "individual",
+            "to": number,
+            "type": "text",
+            "text": {
+                "preview_url": False,
+                "body": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+            }
+        }
+    elif "2" in texto:
+        data = {
+            "messaging_product": "whatsapp",
+            "to": number,
+            "type": "location",
+            "location": {
+                "latitude": "-12.067158831865067",
+                "longitude": "-77.03377940839486",
+                "name": "Estadio Nacional del Perú",
+                "address": "Cercado de Lima"
+            }
+        }
+    elif "3" in texto:
+        data={
+            "messaging_product": "whatsapp",
+            "recipient_type": "individual",
+            "to": number,
+            "type": "document",
+            "document": {
+                    "link": "https://www.turnerlibros.com/wp-content/uploads/2021/02/ejemplo.pdf",
+                    "caption": "Temario del Curso #001"
+                }
+            }
+    elif "4" in texto:
+        data={
+            "messaging_product": "whatsapp",
+            "recipient_type": "individual",
+            "to": number,
+            "type": "audio",
+            "audio": {
+                "link": "https://filesamples.com/samples/audio/mp3/sample1.mp3"
+            }
+        }
     else:
         data={
             "messaging_product": "whatsapp",
@@ -147,7 +191,7 @@ def enviar_mensajes_whatsapp(texto, number):
 
     headers = {
         "Content-Type" : "application/json",
-        "Authorization" : "Bearer EAAXM8qivU6sBRWLAcIkvppnQT9SZCVxXVWBOysRnLdDmI8hPudhjNrDX4J8gF8ETfsnADNfsVTWfdSAB8MRGRWofGR7ZA4gr3KG2cqlAnzSLpp2Oo1DJZAtLwnZCyJjR9fLdCIbjnVOiwBZBzRmHr6RCGXGizTYMlBjowHs0zuoeKuVDmv449Y9L8NB13jqCKB1GKZCUILnB6OSHYxZBYsJ4JBuiAXhWS0VNZBQnxWoY1KV04EqTd80aWaS5SW097xoO5rJH18RUsHrAE4Mj1K3YJ4PikgZDZD"
+        "Authorization" : "Bearer EAAXM8qivU6sBRQzSI6uOmY8oWjs6w1Gixja0N6ifpy4cdvkhltAdR40ci6UT14Q48ohNToFTivO7e4kRPeZC2cZBCZC2FonY31ldVNJfOL6UPBZAR4PSp6BhdJwiaB5Hnta6SrqxRMJ1Hwikn8UL57arnbO6oNu2dwJIOZBRgHj2cVJ2CegPgVAco73YZA2h4TNY1wHDfZA6nGLWpdm0cUWrG0iV5uoxoZB1JAeL1nCp7d463LQ0fczEafUuL3MH2YHZAhZAwqBXDHrlrG5MWXN5dJ2wmU"
     }
 
     connection = http.client.HTTPSConnection("graph.facebook.com")
