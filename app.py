@@ -85,7 +85,8 @@ def recibir_mensajes(req):
         entry = data['entry'][0]
         changes = entry['changes'][0]
         value = changes['value']
-        objeto_mensaje = value['messages']
+        #objeto_mensaje = value['messages']
+        objeto_mensaje = value.get('messages', None)
 
         if objeto_mensaje:
             messages = objeto_mensaje[0]
@@ -112,7 +113,7 @@ def recibir_mensajes(req):
         return jsonify({'message':'EVENT_RECEIVED'}), 200
     except Exception as e:
         print(f"Error en webhook POST: {str(e)}", flush=True)
-        jsonify({'error': str(e)}), 500
+        return jsonify({'error': str(e)}), 500
 
 
 def enviar_mensajes_whatsapp(texto, number):
@@ -137,7 +138,7 @@ def enviar_mensajes_whatsapp(texto, number):
             "type": "text",
             "text": {
                 "preview_url": False,
-                "body": "🚀 Hola, juguemos videojuegos y aprendamos de los lenguajes"
+                "body": "🚀 Hola, visita mi web buenos-programadores para más información.\n \n📌Por favor, ingresa un número #️⃣ para recibir información.\n \n1️⃣. Información del Curso. ❔\n2️⃣. Ubicación del local. 📍\n3️⃣. Enviar temario en PDF. 📄\n4️⃣. Audio explicando curso. 🎧\n5️⃣. Video de Introducción. ⏯️\n6️⃣. Hablar con AnderCode. 🙋‍♂️\n7️⃣. Horario de Atención. 🕜 \n0️⃣. Regresar al Menú. 🕜"
             }
         }
 
