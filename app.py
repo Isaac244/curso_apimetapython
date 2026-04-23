@@ -107,7 +107,7 @@ def recibir_mensajes(req):
                         enviar_mensajes_whatsapp(text, numero)
                     
                     elif tipo_interactivo == "list_reply":
-                        text = messages["interactive"]["button_reply"]["id"]
+                        text = messages["interactive"]["list_reply"]["id"]
                         numero = messages["from"]
 
                         enviar_mensajes_whatsapp(text, numero)
@@ -363,7 +363,7 @@ def enviar_mensajes_whatsapp(texto, number):
             "type": "text",
             "text": {
                 "preview_url": False,
-                "body": "Los mejores articulos TOP en oferta."
+                "body": "Los mejores articulos top en ofertas."
             }
         }
     elif "btnvender" in texto:
@@ -374,7 +374,7 @@ def enviar_mensajes_whatsapp(texto, number):
             "type": "text",
             "text": {
                 "preview_url": False,
-                "body": "Excelente eleccion."
+                "body": "Excelente elección."
             }
         }
     elif "btndireccion" in texto:
