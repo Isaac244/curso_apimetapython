@@ -94,6 +94,9 @@ def recibir_mensajes(req):
             if "type" in messages:
                 tipo = messages["type"]
 
+                #Guardar Log en BD
+                agregar_mensajes_log(json.dumps(tipo))
+
                 if tipo == "interactive":
                     return 0
                 
@@ -102,6 +105,9 @@ def recibir_mensajes(req):
                     numero = messages["from"]
 
                     enviar_mensajes_whatsapp(text, numero)
+
+                    #Guardar Log en BD
+                    agregar_mensajes_log(json.dumps(messages))
 
         if objeto_mensaje is None:
             print("No se recibio el JSON valido", flush=True)
@@ -216,6 +222,45 @@ def enviar_mensajes_whatsapp(texto, number):
                 "body": "🚀 Hola, visita mi web anderson-bastidas.com para más información.\n \n📌Por favor, ingresa un número #️⃣ para recibir información.\n \n1️⃣. Información del Curso. ❔\n2️⃣. Ubicación del local. 📍\n3️⃣. Enviar temario en PDF. 📄\n4️⃣. Audio explicando curso. 🎧\n5️⃣. Video de Introducción. ⏯️\n6️⃣. Hablar con AnderCode. 🙋‍♂️\n7️⃣. Horario de Atención. 🕜 \n0️⃣. Regresar al Menú. 🕜"
             }
         }
+    elif "boton" in texto:
+        data = {
+            "messaging_product": "whatsapp",
+            "recipient_type": "individual",
+            "to": number,
+            "type": "interactive",
+            "interactive" : {
+                "type":"button",
+                "body": {
+                    "text": "¿Confirmas tu registro?"
+                },
+                "footer": {
+                    "text": "Selecciona una de las opciones"
+                },
+                "action": {
+                    "buttons":[
+                        {
+                            "type": "reply",
+                            "reply":{
+                                "id":"btnsi",
+                                "title":"Si"
+                            }
+                        },{
+                            "type": "reply",
+                            "reply":{
+                                "id":"btnno",
+                                "title":"No"
+                            }
+                        },{
+                            "type": "reply",
+                            "reply":{
+                                "id":"btntalvez",
+                                "title":"Tal Vez"
+                            }
+                        }
+                    ]
+                }
+            }
+        }
     else:
         data={
             "messaging_product": "whatsapp",
@@ -233,7 +278,7 @@ def enviar_mensajes_whatsapp(texto, number):
 
     headers = {
         "Content-Type" : "application/json",
-        "Authorization" : "Bearer EAAXM8qivU6sBRQzSI6uOmY8oWjs6w1Gixja0N6ifpy4cdvkhltAdR40ci6UT14Q48ohNToFTivO7e4kRPeZC2cZBCZC2FonY31ldVNJfOL6UPBZAR4PSp6BhdJwiaB5Hnta6SrqxRMJ1Hwikn8UL57arnbO6oNu2dwJIOZBRgHj2cVJ2CegPgVAco73YZA2h4TNY1wHDfZA6nGLWpdm0cUWrG0iV5uoxoZB1JAeL1nCp7d463LQ0fczEafUuL3MH2YHZAhZAwqBXDHrlrG5MWXN5dJ2wmU"
+        "Authorization" : "Bearer EAAXM8qivU6sBRWbnZAZAmgwLovbA26Tui6yDNcuTjAgrkKwKnKkBI8DAz6QFjHhlZCf2JVZBqCJLxDiZC4PXVtyPbiwv5gCXd8ZC9aGOtchVncToVjonYb2WTYShA2yw3Ep2lpsH0PVH6vOBqsjNr2tyrjTMCwwjnrOXSuNvj0ZApxK4ZBwlJHgr9NZA9Emq6PQ0ZC6eBOB4BA8eeW5PCOZCgmEoyKuBMkRbmUzg1DypIQIzbpE6I8TZCrMgTfsaBLkXRUBGmQlu1bqJMTclbMBs4x0Rshbz"
     }
 
     connection = http.client.HTTPSConnection("graph.facebook.com")
