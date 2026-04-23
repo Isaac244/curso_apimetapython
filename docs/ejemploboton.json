@@ -1,0 +1,18 @@
+{
+    "context": {
+        "from": "15551579596",
+        "id": "wamid.HBgLNTE5OTk2MDI0NDMVAgARGBI4RjUxQTNDN0M3MTUwMjUzQjQA"
+    },
+    "from": "51999602443",
+    "from_user_id": "PE.936762572670447",
+    "id": "wamid.HBgLNTE5OTk2MDI0NDMVAgASGBYzRUIwQzI0N0E5NDg0QzJENDZFQzQ3AA==",
+    "timestamp": "1776915589",
+    "type": "interactive",
+    "interactive": {
+        "type": "button_reply",
+        "button_reply": {
+            "id": "btnsi",
+            "title": "Si"
+        }
+    }
+}

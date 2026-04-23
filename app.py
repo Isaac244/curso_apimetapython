@@ -98,7 +98,13 @@ def recibir_mensajes(req):
                 agregar_mensajes_log(json.dumps(messages))
 
                 if tipo == "interactive":
-                    return 0
+                    tipo_interactivo = messages["interactive"]["type"]
+
+                    if tipo_interactivo == "button_reply":
+                        text = messages["interactive"]["button_reply"]["id"]
+                        numero = messages["from"]
+
+                        enviar_mensajes_whatsapp(text, numero)
                 
                 if "text" in messages:
                     text = messages["text"]["body"]
@@ -261,6 +267,39 @@ def enviar_mensajes_whatsapp(texto, number):
                 }
             }
         }
+    elif "btnsi" in texto:
+        data = {
+            "messaging_product": "whatsapp",
+            "recipient_type": "individual",
+            "to": number,
+            "type": "text",
+            "text": {
+                "preview_url": False,
+                "body": "Muchas Gracias por aceptar."
+            }
+        }
+    elif "btnno" in texto:
+        data = {
+            "messaging_product": "whatsapp",
+            "recipient_type": "individual",
+            "to": number,
+            "type": "text",
+            "text": {
+                "preview_url": False,
+                "body": "Es una lastima."
+            }
+        }
+    elif "btntalvez" in texto:
+        data = {
+            "messaging_product": "whatsapp",
+            "recipient_type": "individual",
+            "to": number,
+            "type": "text",
+            "text": {
+                "preview_url": False,
+                "body": "Estare a la espera."
+            }
+        }
     else:
         data={
             "messaging_product": "whatsapp",
@@ -278,7 +317,7 @@ def enviar_mensajes_whatsapp(texto, number):
 
     headers = {
         "Content-Type" : "application/json",
-        "Authorization" : "Bearer EAAXM8qivU6sBRWbnZAZAmgwLovbA26Tui6yDNcuTjAgrkKwKnKkBI8DAz6QFjHhlZCf2JVZBqCJLxDiZC4PXVtyPbiwv5gCXd8ZC9aGOtchVncToVjonYb2WTYShA2yw3Ep2lpsH0PVH6vOBqsjNr2tyrjTMCwwjnrOXSuNvj0ZApxK4ZBwlJHgr9NZA9Emq6PQ0ZC6eBOB4BA8eeW5PCOZCgmEoyKuBMkRbmUzg1DypIQIzbpE6I8TZCrMgTfsaBLkXRUBGmQlu1bqJMTclbMBs4x0Rshbz"
+        "Authorization" : "Bearer EAAXM8qivU6sBRSG8ewjWsGEmLPBhrmq34rWeofdOYkZBsrgpaa5WGCaJZAcmDfxUwqyCUisfYDmlZAmM8P9F2CN6ZBpmQZBxcuQMlmfZB5wBzZB5bDCSGZBBHi6AGglv1ElrOrq2GuswwBPGCG5HoRgUiW0bJAQulJHm0rZBoi2y0V0KP6f8uQt3TFOofBoxORPY7xzjf8jZAQUdfRg6UlmJDTT6unUe8dZBFKyP001EXZAiSsDq4LwCU2PO1tY274IYMO2Peb5ilxZB7KeXxMiOtf5qEz5HT"
     }
 
     connection = http.client.HTTPSConnection("graph.facebook.com")
