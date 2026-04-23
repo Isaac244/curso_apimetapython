@@ -35,7 +35,10 @@
             {% for registro in registros %}
                 <tr>
                     <td>{{ registro.fecha_y_hora }}</td>
-                    <td>{{ registro.texto }}</td>
+                    <td>
+                        <pre style="white-space: pre-wrap;
+                        margin: 0;">{{ registro.texto }}</pre>
+                    </td>
                 </tr>
             {% endfor %}
         </tbody>

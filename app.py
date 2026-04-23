@@ -39,12 +39,16 @@ mensajes_log = []
 #Funcion para agregar mensajes y guardar en la BD
 def agregar_mensajes_log(data):
     try:
-        #Convertir el JSON/dict a String
-        texto_json = json.dumps(data, ensure_ascii=False, indent=2)
-        mensajes_log.append(texto_json)
+        if isinstance(data, str):
+            texto_guardar = data
+        else:
+            #Convertir el JSON/dict a String
+            texto_guardar = json.dumps(data, ensure_ascii=False, indent=2)
+
+        mensajes_log.append(texto_guardar)
 
         #Guardar el mensaje en la BD
-        nuevo_registro = Log(texto=texto_json)
+        nuevo_registro = Log(texto=texto_guardar)
         db.session.add(nuevo_registro)
         db.session.commit()
 
@@ -127,6 +131,7 @@ def recibir_mensajes(req):
         
         print("JSON recibido:", json.dumps(objeto_mensaje, ensure_ascii=False, indent=2), flush=True)
         
+        agregar_mensajes_log(objeto_mensaje)
 
         return jsonify({'message':'EVENT_RECEIVED'}), 200
     except Exception as e:
