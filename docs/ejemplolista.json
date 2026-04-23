@@ -1,0 +1,19 @@
+{
+    "context": {
+        "from": "15551579596",
+        "id": "wamid.HBgLNTE5OTk2MDI0NDMVAgARGBJEOUFEODhDMEJFNzBDQkQ3RTkA"
+    },
+    "from": "51999602443",
+    "from_user_id": "PE.936762572670447",
+    "id": "wamid.HBgLNTE5OTk2MDI0NDMVAgASGBYzRUIwMUQ2ODUxRUE5OURBQkE5ODk0AA==",
+    "timestamp": "1776920597",
+    "type": "interactive",
+    "interactive": {
+        "type": "list_reply",
+        "list_reply": {
+            "id": "btncompra",
+            "title": "Comprar",
+            "description": "Compra los mejores articulos de tecnologia"
+        }
+    }
+}

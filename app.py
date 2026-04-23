@@ -105,6 +105,12 @@ def recibir_mensajes(req):
                         numero = messages["from"]
 
                         enviar_mensajes_whatsapp(text, numero)
+                    
+                    elif tipo_interactivo == "list_reply":
+                        text = messages["interactive"]["button_reply"]["id"]
+                        numero = messages["from"]
+
+                        enviar_mensajes_whatsapp(text, numero)
                 
                 if "text" in messages:
                     text = messages["text"]["body"]
@@ -349,6 +355,51 @@ def enviar_mensajes_whatsapp(texto, number):
                 }
             }
         }
+    elif "btncompra" in texto:
+        data = {
+            "messaging_product": "whatsapp",
+            "recipient_type": "individual",
+            "to": number,
+            "type": "text",
+            "text": {
+                "preview_url": False,
+                "body": "Los mejores articulos TOP en oferta."
+            }
+        }
+    elif "btnvender" in texto:
+        data = {
+            "messaging_product": "whatsapp",
+            "recipient_type": "individual",
+            "to": number,
+            "type": "text",
+            "text": {
+                "preview_url": False,
+                "body": "Excelente eleccion."
+            }
+        }
+    elif "btndireccion" in texto:
+        data = {
+            "messaging_product": "whatsapp",
+            "to": number,
+            "type": "location",
+            "location": {
+                "latitude": "34.117545274617974",
+                "longitude": "-117.53181160995446",
+                "name": "Victoria Gardens",
+                "address": "En California"
+            }
+        }
+    elif "btnentrega" in texto:
+        data = {
+            "messaging_product": "whatsapp",
+            "recipient_type": "individual",
+            "to": number,
+            "type": "text",
+            "text": {
+                "preview_url": False,
+                "body": "Su entrega fue todo un exito."
+            }
+        }
     else:
         data={
             "messaging_product": "whatsapp",
@@ -366,7 +417,7 @@ def enviar_mensajes_whatsapp(texto, number):
 
     headers = {
         "Content-Type" : "application/json",
-        "Authorization" : "Bearer EAAXM8qivU6sBRSG8ewjWsGEmLPBhrmq34rWeofdOYkZBsrgpaa5WGCaJZAcmDfxUwqyCUisfYDmlZAmM8P9F2CN6ZBpmQZBxcuQMlmfZB5wBzZB5bDCSGZBBHi6AGglv1ElrOrq2GuswwBPGCG5HoRgUiW0bJAQulJHm0rZBoi2y0V0KP6f8uQt3TFOofBoxORPY7xzjf8jZAQUdfRg6UlmJDTT6unUe8dZBFKyP001EXZAiSsDq4LwCU2PO1tY274IYMO2Peb5ilxZB7KeXxMiOtf5qEz5HT"
+        "Authorization" : "Bearer EAAXM8qivU6sBRTnQhuoAqFAbyKdvTjsIEpTySNVAl5UqkvZAyiWzMX1N0mw2Qcgsf951ZACNzyM7HRaqYC1gSPQusJNDzYuWeLnsRVZAskJAlFsCmaXP2VaOAAGJ9tlzLy9t1wM3LOAVByIdt7xNNyHZCdPV3VR0NyDrApcpRNf9BNDfhcJpPLcQKPJZBRAWQFm6quKWYxadCaCboICPCIpAkEmry6ddP8IZBJ0gbmeZBILaXhNvzJJ31Jc79vv9dpNzlr9sexZCtZBNEphNFfCibSjL4"
     }
 
     connection = http.client.HTTPSConnection("graph.facebook.com")
